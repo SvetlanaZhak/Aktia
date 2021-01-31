@@ -1,0 +1,30 @@
+{
+   "compilerOptions": {
+      // Common
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "noUnusedLocals": true,
+      "pretty": false,
+      "strict": true,
+      "strictFunctionTypes": true,
+      "strictPropertyInitialization": true,
+      "forceConsistentCasingInFileNames": true,
+      "noUnusedParameters": true,
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+
+      // Specific
+      "skipLibCheck": true,
+      "noEmit": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "sourceRoot": "",
+      "lib": ["es2017", "esnext"],
+
+      "module": "commonjs",
+      "types": ["jest", "node"],
+      "target": "es6",
+      "outDir": "./server-buid/"
+   },
+   "files": ["src/server/run.ts"]
+}
