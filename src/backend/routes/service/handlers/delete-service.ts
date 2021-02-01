@@ -1,16 +1,16 @@
 import { notFound } from "@hapi/boom";
 import { ResponseToolkit, Request } from "@hapi/hapi";
-import AgreementModel from "../../../db/models/agreement-model";
+import ServiceModel from "../../../db/models/service-model";
 
-export async function handleDeleteAgreement(
+export async function handleDeleteService(
   request: Request,
   _rt: ResponseToolkit
 ): Promise<null> {
   const id = parseInt(request.params.id, 10) as number;
-  const agreement = await AgreementModel.findOne({ where: { id } });
-  if (!agreement) {
+  const service = await ServiceModel.findOne({ where: { id } });
+  if (!service) {
     throw notFound();
   }
-  await agreement.destroy();
+  await service.destroy();
   return null;
 }

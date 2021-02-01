@@ -2,6 +2,7 @@ import { RouteOptions, Server } from "@hapi/hapi";
 
 import { customerPlugin } from "./routes/customer";
 import { agreementPlugin } from "./routes/agreement";
+import { servicePlugin } from "./routes/service";
 
 const good = require("@hapi/good");
 
@@ -53,6 +54,10 @@ export async function run() {
   });
   await server.register({
     plugin: agreementPlugin,
+    options: { routeOptions },
+  });
+  await server.register({
+    plugin: servicePlugin,
     options: { routeOptions },
   });
 
