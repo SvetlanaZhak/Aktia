@@ -7,9 +7,7 @@ export async function handleGetServices(
   _r: Request,
   _rt: ResponseToolkit
 ): Promise<Service[]> {
-  console.log("HERE");
   const services = await ServiceModel.findAll();
-  console.log("THERE");
   return services;
 }
 

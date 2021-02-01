@@ -9,7 +9,7 @@ import {
   PrimaryKey,
   AutoIncrement,
 } from "sequelize-typescript";
-import { Service } from "../../../common/api-types";
+import { Service, ServiceType } from "../../../common/api-types";
 import AgreementModel from "./agreement-model";
 
 @Table({
@@ -28,16 +28,16 @@ export default class ServiceModel
   @Unique
   @AllowNull(false)
   @Column(DataType.INTEGER)
-  public type!: number;
+  public type!: ServiceType;
 
   @AllowNull(false)
   @ForeignKey(() => AgreementModel)
   @Column
   public agreementId!: number;
 
-  @AllowNull(true)
+  @AllowNull(false)
   @Column
-  public fee: number;
+  public fee!: number;
 
   @AllowNull(false)
   @Column

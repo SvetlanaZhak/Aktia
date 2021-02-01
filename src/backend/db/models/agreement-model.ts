@@ -1,5 +1,8 @@
 import {
   AllowNull,
+  Scopes,
+  HasMany,
+  ScopesOptions,
   DataType,
   Column,
   Model,
@@ -8,15 +11,26 @@ import {
   Unique,
   PrimaryKey,
   AutoIncrement,
-} from 'sequelize-typescript';
-import { Agreement, AgreementType } from '../../../common/api-types';
-import CustomerModel from './customer-model';
+} from "sequelize-typescript";
+import { Agreement, AgreementType } from "../../../common/api-types";
+import CustomerModel from "./customer-model";
+import ServiceModel from "./service-model";
 
+@Scopes(() => {
+  const full: ScopesOptions = {
+    include: [{ all: true, nested: true } as any],
+  };
+  return {
+    full,
+  };
+})
 @Table({
-  tableName: 'agreement',
+  tableName: "agreement",
   timestamps: true,
 })
-export default class AgreementModel extends Model<AgreementModel> implements Agreement {
+export default class AgreementModel
+  extends Model<AgreementModel>
+  implements Agreement {
   @AllowNull(false)
   @PrimaryKey
   @AutoIncrement
@@ -27,6 +41,9 @@ export default class AgreementModel extends Model<AgreementModel> implements Agr
   @AllowNull(false)
   @Column(DataType.INTEGER)
   public type!: AgreementType;
+
+  @HasMany(() => ServiceModel)
+  public services!: ServiceModel[];
 
   @AllowNull(false)
   @ForeignKey(() => CustomerModel)

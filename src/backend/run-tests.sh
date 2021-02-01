@@ -5,4 +5,4 @@ dropdb --if-exists aktiatestdb
 createdb aktiatestdb
 yarn sequelize db:migrate
 
-jest
+jest src/backend

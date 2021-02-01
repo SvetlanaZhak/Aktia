@@ -1,12 +1,33 @@
-import { AllowNull, Column, Model, Table, Unique, HasMany, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
-import { Customer } from '../../../common/api-types';
-import AgreementModel from './agreement-model';
+import {
+  AllowNull,
+  Scopes,
+  ScopesOptions,
+  Column,
+  Model,
+  Table,
+  Unique,
+  HasMany,
+  PrimaryKey,
+  AutoIncrement,
+} from "sequelize-typescript";
+import { Customer } from "../../../common/api-types";
+import AgreementModel from "./agreement-model";
 
+@Scopes(() => {
+  const full: ScopesOptions = {
+    include: [{ all: true, nested: true } as any],
+  };
+  return {
+    full,
+  };
+})
 @Table({
-  tableName: 'customer',
+  tableName: "customer",
   timestamps: true,
 })
-export default class CustomerModel extends Model<CustomerModel> implements Customer {
+export default class CustomerModel
+  extends Model<CustomerModel>
+  implements Customer {
   @AllowNull(false)
   @PrimaryKey
   @AutoIncrement

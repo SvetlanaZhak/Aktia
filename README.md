@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# Agreement Price Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a job application task for junior developer position at Aktia. The full-stack project is implemented with Postgresql, Sequelize ORM, Node.js, Hapi, React, React-Table, styled components, Axios and coded in Typescript.
 
-## Available Scripts
+## Task Reflection
 
-In the project directory, you can run:
+Implemented functionalities:
 
-### `yarn start`
+- Listing all customers and their info
+- Listing customer agreements and service, with sum of service fee
+- Updating service fee through UI
+- CRUD functionalities api endpoints for all entities
+- Version controlled database schema
+- ORM layer for using database tables
+- Basic unit tests for frontend
+- Unit/integration tests for backend (hapi & postgres integration)
+- Shared typing between frontend and backend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Improvement ideas and reflection:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- I spent a bit too much time on backend, and had to skip UI styling almost entirely
+- Similarly, UI code and typing should be tidied up.
+- The rest of CRUD functionalities could easily be added to the front end
+- Test coverage could be improved
 
-### `yarn test`
+## UI
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![UI example](/example.png)
 
-### `yarn build`
+## Developement
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Postgres (v10)
+- Node.js
+- Yarn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Development environment setup
 
-### `yarn eject`
+To install modules, and initialize the database, run:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+./setup.sh
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Testing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+yarn test #  for running all tests
+yarn test-frontend # for running frontend tests
+yarn test-backend # for running backend tests
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Database migrations
 
-## Learn More
+The database schema is version controlled together with the code. To create or edit tables:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+yarn sequelize migration:create --name migration-name
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# edit migration file, then
+yarn sequelize db:migrate
+```
+
+### Running development environment
+
+```
+yarn start-frontend
+NODE_ENV=test yarn start-backend # test environment has prepopulated data
+```

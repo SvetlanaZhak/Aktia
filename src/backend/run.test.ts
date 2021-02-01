@@ -3,9 +3,15 @@ import { run } from "./run";
 import fetch from "node-fetch";
 import { sequelize } from "./db";
 import CustomerModel from "./db/models/customer-model";
-import { Agreement, AgreementType, Customer } from "../common/api-types";
+import { Agreement, Customer } from "../common/api-types";
 import AgreementModel from "./db/models/agreement-model";
 import { fetchJson } from "./utils";
+import {
+  testCustomers,
+  testAgreements,
+  testServices,
+} from "../common/test-data";
+import ServiceModel from "./db/models/service-model";
 
 const apiUrl = "http://localhost:3001/api";
 
@@ -62,7 +68,7 @@ describe("Test main server functionality", () => {
   });
 
   it("Should be able to delete agreement", async () => {
-    const agreement = testAgreements[0];
+    const agreement = testAgreements[3];
     const response = await fetchJson(
       apiUrl + `/agreement/${agreement.id}`,
       "DELETE"
@@ -82,70 +88,8 @@ describe("Test main server functionality", () => {
   });
 });
 
-const testCustomers: Customer[] = [
-  {
-    id: 1,
-    name: "Lana",
-    identificationNumber: "121189",
-  },
-  {
-    id: 2,
-    name: "Juho",
-    identificationNumber: "123",
-  },
-  {
-    id: 3,
-    name: "Fred",
-    identificationNumber: "45243",
-  },
-  {
-    id: 4,
-    name: "Tom",
-    identificationNumber: "76",
-  },
-  {
-    id: 5,
-    name: "Pekka",
-    identificationNumber: "5555",
-  },
-];
-
-const testAgreements: Agreement[] = [
-  {
-    id: 1,
-    type: AgreementType.BANK_ACCOUNT,
-    customerId: 1,
-    start: new Date("2020-01-01"),
-  },
-  {
-    id: 2,
-    type: AgreementType.CREDIT_CARD,
-    customerId: 1,
-    start: new Date("2020-01-01"),
-  },
-  {
-    id: 3,
-    type: AgreementType.STUDENT_LOAN,
-    customerId: 1,
-    start: new Date("2020-01-01"),
-  },
-  {
-    id: 4,
-    type: AgreementType.BANK_ACCOUNT,
-    customerId: 2,
-    start: new Date("2020-01-01"),
-    end: new Date("2019-01-01"),
-  },
-  {
-    id: 5,
-    type: AgreementType.MORTAGE,
-    customerId: 2,
-    start: new Date("1980-01-01"),
-    end: new Date("2019-01-01"),
-  },
-];
-
 async function initTestData() {
   await CustomerModel.bulkCreate(testCustomers);
   await AgreementModel.bulkCreate(testAgreements);
+  await ServiceModel.bulkCreate(testServices);
 }
